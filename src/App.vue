@@ -42,7 +42,7 @@ function navigate(page: Page): void {
 @import './assets/scss/debug.scss';
 
 .app-container {
-  min-height: 100vh;
+  height: 100vh;
   display: grid;
   grid-template-areas: 'header' 'app-content' 'footer';
   grid-template-rows: 48px auto 48px;
