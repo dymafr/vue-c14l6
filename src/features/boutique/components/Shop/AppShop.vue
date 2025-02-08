@@ -1,32 +1,28 @@
 <script setup lang="ts">
-import type {
-  FiltersInterface,
-  ProductInterface,
-  FilterUpdate,
-} from '../../interfaces';
-import ShopProductList from './ShopProductList.vue';
-import ShopFilters from './ShopFilters.vue';
+import type { FiltersInterface, ProductInterface, FilterUpdate } from '../../../../interfaces'
+import AppShopProductList from './AppShopProductList.vue'
+import AppShopFilters from './AppShopFilters.vue'
 
 defineProps<{
-  products: ProductInterface[];
-  filters: FiltersInterface;
-}>();
+  products: ProductInterface[]
+  filters: FiltersInterface
+}>()
 
 const emit = defineEmits<{
-  (e: 'addProductToCart', productId: string): void;
-  (e: 'updateFilter', updateFilter: FilterUpdate): void;
-}>();
+  (e: 'addProductToCart', productId: string): void
+  (e: 'updateFilter', updateFilter: FilterUpdate): void
+}>()
 </script>
 
 <template>
   <div class="d-flex flex-row">
-    <ShopFilters
+    <AppShopFilters
       :filters="filters"
       :nbr-of-products="products.length"
       @update-filter="emit('updateFilter', $event)"
       class="shop-filter"
     />
-    <ShopProductList
+    <AppShopProductList
       class="flex-fill scrollable"
       @add-product-to-cart="emit('addProductToCart', $event)"
       :products="products"

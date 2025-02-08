@@ -1,45 +1,41 @@
 <script setup lang="ts">
-import TheHeader from './components/Header.vue';
-import TheFooter from './components/Footer.vue';
-import Boutique from './features/boutique/Boutique.vue';
-import Admin from './features/admin/Admin.vue';
-import { reactive, type Component as C } from 'vue';
-import type { Page } from './interfaces';
-import { seed } from './data/seed';
+import AppHeader from './components/AppHeader.vue'
+import AppFooter from './components/AppFooter.vue'
+import AppBoutique from './features/boutique/AppBoutique.vue'
+import AppAdmin from './features/admin/AppAdmin.vue'
+import { ref, type Component as C } from 'vue'
+import type { Page } from './interfaces'
+// import { seed } from './data/seed'
 
-const state = reactive<{
-    page: Page
-}>({
-    page: 'Boutique'
-})
+const page = ref<Page>('AppBoutique')
 
 const pages: { [s: string]: C } = {
-    Boutique,
-    Admin
+  AppBoutique,
+  AppAdmin,
 }
 
-function navigate(page: Page): void {
-    state.page = page;
+function navigate(newPage: Page): void {
+  page.value = newPage
 }
 
-// seed('projetproducts');
+// seed('projetproducts')
 </script>
 
 <template>
   <div class="app-container">
-    <TheHeader @navigate="navigate" :page="state.page" class="header" />
+    <AppHeader @navigate="navigate" :page="page" class="header" />
     <div class="app-content">
       <Suspense>
-        <Component :is="pages[state.page]" />
+        <Component :is="pages[page]" />
       </Suspense>
     </div>
-    <TheFooter class="footer" />
+    <AppFooter class="footer" />
   </div>
 </template>
 
 <style lang="scss">
-@import './assets/scss/base.scss';
-@import './assets/scss/debug.scss';
+@use './assets/scss/base.scss';
+@use './assets/scss/debug.scss';
 
 .app-container {
   height: 100vh;
